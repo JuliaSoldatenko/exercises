@@ -2,7 +2,27 @@ package com.epam.algorithm.medium;
 
 public class FindDuplicateNumber {
 
-    public int findDuplicate(int[] nums) {
+    public static void main(String... args) {
+        int[] nums = new int[]{4,3,2,7,8,2,3,1};
+        System.out.println(findDuplicate2(nums));
+    }
+
+    public static int findDuplicate2(int[] nums) {
+        for(int i=0; i<nums.length; i++) {
+            int indx = Math.abs(nums[i])-1;
+
+            if(nums[indx] > 0) {
+                nums[indx] = nums[indx] * -1;
+            } else {
+                return Math.abs(nums[i]);
+            }
+        }
+
+        return -1;
+
+    }
+
+    public static int findDuplicate(int[] nums) {
         nums = sort(nums, 0, nums.length-1);
         for (int i = 0; i < nums.length-1; i++) {
             if (nums[i] == nums[i+1]) {
@@ -39,7 +59,7 @@ public class FindDuplicateNumber {
     public static int[] sort(int[] nums, int start, int end) {
         if (start < end) {
             int middle = start + (((end + 1) - start) / 2); // this is the first index of the second array
-            sort(nums, start, middle-1);
+            sort(nums, start, middle - 1);
             sort(nums, middle, end);
             merge(nums, start, middle, end);
         }
